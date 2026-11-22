@@ -1,0 +1,7 @@
+# mdformat configuration for this repository.
+# Without `number = true`, mdformat rewrites every ordered-list item to "1.",
+# which makes the raw source of docs/90-open-questions.md unreadable even though
+# it still renders correctly. Keep consecutive numbering.
+number = true
+wrap = "keep"
+end_of_line = "lf"
