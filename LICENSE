@@ -1,0 +1,18 @@
+Documentation and other non-code assets in this repository are licensed under the
+Creative Commons Attribution 4.0 International licence (CC-BY-4.0).
+
+You are free to share and adapt this material for any purpose, including commercially,
+provided you give appropriate credit, link to the licence, and indicate if changes were
+made.
+
+Full licence text: https://creativecommons.org/licenses/by/4.0/legalcode
+Human-readable summary: https://creativecommons.org/licenses/by/4.0/
+
+SPDX-License-Identifier: CC-BY-4.0
+
+Note on code: this project's implementation compiles to the query model of OpenSAFELY's
+ehrQL, which is licensed GPL-3.0-or-later. Code in this repository is therefore a
+derivative work and is licensed GPL-3.0-or-later, declared in its own subtree.
+See docs/08-reuse-and-dependencies.md.
+
+SPDX-License-Identifier (code): GPL-3.0-or-later
