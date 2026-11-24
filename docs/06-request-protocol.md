@@ -111,6 +111,6 @@ and should not be asked to. Nothing about the code is safe because it was signed
 the data it can reach and reviewed by what it emits.
 
 **[open]** The JSON Schema for the specification. Key custody for signers, and recovery when a key
-is lost. Values of *m* and *n*, and whether some request classes need a higher threshold. Whether
-the render can be partly automated without becoming a self-description the requester effectively
-writes.
+is lost. Values of *m* and *n*, and whether some request classes need a higher threshold. The
+renderer's vocabulary — how filters are phrased so a lay reviewer genuinely understands them, and
+who validates comprehensibility rather than mere accuracy.

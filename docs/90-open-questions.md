@@ -1,6 +1,6 @@
 # Open questions
 
-Written down because they are unresolved. Several are mine to answer, and the design should not pretend otherwise.
+Written down because they are unresolved. Several are not mine to answer, and the design should not pretend otherwise.
 
 ## For the community and host organisation to decide
 
@@ -50,8 +50,10 @@ Written down because they are unresolved. Several are mine to answer, and the de
     queries, which is the unsolved problem in every TRE.
 19. **Tamper-evidence** for the audit log: hash chain, external anchoring, third-party witness —
     what is defensible at this scale and affordable to run?
-20. **Request rendering.** Can the plain-language rendering of a request be partly automated without
-    becoming a self-description the requester effectively writes?
+20. **Rendering vocabulary.** How a row filter or column selection is phrased so that a community
+    health worker genuinely understands it, and who validates that the phrasing is comprehensible
+    rather than merely accurate. The mechanism is settled — deterministic derivation from the signed
+    specification — but the words are not.
 21. **Disclosure-control staffing.** Who performs output review, trained how, funded how, with what
     appeal path for refusals?
 22. **Sharding in practice.** Whether shardable training is realistic for the model sizes a
@@ -70,9 +72,21 @@ Written down because they are unresolved. Several are mine to answer, and the de
 26. **Verifier scope.** How much of verification the independent Nim binary must cover to be a
     meaningful second implementation rather than a partial check that creates false confidence.
 
+## Consequences of the weights-only decision
+
+27. **How to disclosure-review a model.** Checking a table against release rules is tractable;
+    establishing that a model will not leak its training records is only partly solved. This is now
+    on the critical path rather than at the edges.
+28. **Shard count.** How *N* is chosen, and what the migration path is if it ever has to change —
+    since changing it reshuffles every record's assignment.
+29. **Differential privacy.** Whether it is required during training, and what loss of accuracy is
+    acceptable, decided with the people whose records are at stake rather than by the requester.
+30. **Custodian-side retrieval.** If it is ever adopted as a second phase, who carries the uptime
+    obligation, who pays to serve it, and how disclosure control works at query volume.
+
 ## Known tension
 
-27. The protections for small subgroups weaken as the community gets smaller and more specific —
+31. The protections for small subgroups weaken as the community gets smaller and more specific —
     which is exactly the setting this project exists to serve. There may be no clean resolution,
     only an explicit decision made with the community about what it is willing to publish about
     itself.

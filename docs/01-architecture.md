@@ -66,12 +66,20 @@ some request classes need a higher threshold than others.
 Aggregated results can still leak information about individuals, particularly in small subgroups.
 Every real Trusted Research Environment retains a human step here, and so does this design.
 
-The reviewer's job is bounded and well-defined: check outgoing results against release rules
-(minimum cell sizes, suppression of small counts, no record-level data) and approve or refuse.
-This is a tractable queue of outgoing artifacts — not an attempt to supervise a corporation.
+For tabular results the reviewer's job is bounded and well-defined: check against release rules
+(minimum cell sizes, suppression of small counts, no record-level data) and approve or refuse. This
+is a tractable queue of outgoing artifacts — not an attempt to supervise a corporation.
+
+Under the weights-only policy, however, the artifact under review is frequently a **model**, and
+that is a materially harder review: establishing that a model will not leak the people inside it is
+only partly solved. The queue therefore also carries consent re-checking at release, and
+model-specific checks — canary probing, membership-inference testing. See
+[05-threat-model.md](05-threat-model.md) §9.
 
 **[open]** Who performs disclosure control, what training they need, how the role is funded, and
-what the appeal path is when a researcher's output is refused.
+what the appeal path is when a researcher's output is refused. Reviewing a *model* rather than a
+table is a materially harder problem and is tracked separately at
+[90-open-questions.md](90-open-questions.md) §27.
 
 ## Audit log
 
@@ -90,13 +98,16 @@ re-identifying data subjects.
 
 Conditions attached to a grant, enforced where possible and contractual where not:
 
-- **Derived artifacts must sit in a revocable position.** Where the data informs a model, it should
-  be queried from a retrieval layer rather than baked into weights, so that withdrawal takes
-  effect immediately. See [03-revocation.md](03-revocation.md).
-- **Where weights are trained, training must be shardable** so the cost of honouring a withdrawal
-  is bounded to the affected shard rather than the whole model.
+- **Weights only.** Requesters may train and export model weights. Taking a copy of the records
+  into any external index or store is prohibited — that is a bulk data release, not a safer
+  alternative. See [03-revocation.md](03-revocation.md).
+- **Sharded training is mandatory**, not preferred. The cost of honouring a withdrawal must be
+  bounded to the affected shard rather than the whole model. A requester who will not shard cannot
+  have access.
 - **Weight export is governed.** Trained weights leaving the environment ends revocability
   permanently. This is the single highest-leverage condition and the one most often forgotten.
+- **Consent is re-checked at release**, not only at extraction. An artifact built from a record
+  withdrawn since the extract was taken is not released.
 
 ## Development and testing posture
 

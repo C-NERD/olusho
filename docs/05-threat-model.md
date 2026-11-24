@@ -55,8 +55,8 @@ refusal rate of zero over a long period should be treated as a defect signal.
 A requester trains on the data inside the environment, exports the weights, and from then on holds
 a derived artifact beyond any revocation.
 
-*Mitigation:* weight export is explicitly governed; retrieval-layer use is preferred precisely
-because it leaves nothing to export.
+*Mitigation:* weight export is explicitly governed, and grants require shardable training so that
+a withdrawal after export has a bounded remedy the holder can actually perform.
 
 *Residual:* once weights are out, revocation is permanently over. There is no technical remedy,
 which is why this is a condition at grant time rather than a control afterwards.
@@ -94,6 +94,26 @@ Requesters decline the constraints and obtain equivalent data elsewhere, ungover
 enough that access on these terms is worth accepting. If it is not, the gate guards an empty room.
 It is listed in [90-open-questions.md](90-open-questions.md) as an assumption to be tested with the
 community, not asserted.
+
+## 9. The released model leaks its own training data
+
+Under a weights-only policy (see [03-revocation.md](03-revocation.md)) the artifact leaving the
+environment is a model trained on individual mental health records. Models memorise. Membership
+inference can establish that a particular person was in the training set, and extraction attacks
+can recover fragments of training records from the weights themselves.
+
+This is a disclosure of released data with no remedy, because the artifact is already out.
+
+*Mitigation:* keep models small and extracts narrow, so there is less capacity to memorise relative
+to the data; canary insertion and extraction probing before release; membership-inference testing as
+part of disclosure review; differential privacy during training where the accuracy cost is
+acceptable.
+
+*Residual:* substantial, and worse than it looks. Disclosure-reviewing a model is a far harder
+problem than disclosure-reviewing a table — checking minimum cell sizes is tractable, while
+establishing that a model will not leak the people inside it is only partly solved. This is the
+largest cost of choosing weights-only, and it is tracked as
+[90-open-questions.md](90-open-questions.md) §27.
 
 ## What this design does not defend against
 

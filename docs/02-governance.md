@@ -81,5 +81,9 @@ into a plain-language statement of what the code would actually do, what it woul
 would leave. If a community health worker cannot form a view from that rendering, the rendering is
 the bug.
 
-**[open]** Who produces that rendering, and whether it can be partly automated without becoming a
-summary the requester effectively writes about themselves.
+**[open]** The renderer's *vocabulary*: how a row filter or a column selection is phrased so that a
+community health worker genuinely understands it, and who validates that the phrasing is
+comprehensible rather than merely accurate. The mechanism is settled — the text is derived
+deterministically from the signed specification, which is exactly what makes a requester-authored
+self-description impossible (see [06-request-protocol.md](06-request-protocol.md)). The words are
+not settled, and they are a question for the community rather than for engineering.

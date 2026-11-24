@@ -61,6 +61,31 @@ database, so a bug in the compiler is not sufficient to exceed the grant:
 mTLS sits between the runner and PostgreSQL. It is deliberately *not* between the sandbox and
 PostgreSQL — mutual authentication is worth little when the adversary is inside the client.
 
+## Extract manifests
+
+Every extract writes a manifest, held inside the custody boundary and never shipped to the sandbox.
+It records:
+
+- the **internal record keys** included in the extract;
+- the **per-grant pseudonymous ID** issued for each, which is what the sandbox actually sees;
+- the **shard assignment** for each record, as computed at extract time (see
+  [03-revocation.md](03-revocation.md));
+- the grant it belongs to, and the salt used for shard assignment.
+
+Without this, withdrawal is unanswerable. You would know that someone had withdrawn but not which
+grants included them, which requesters to notify, or which shard needs retraining. The manifest is
+what turns revocation from an intention into a database query.
+
+Real primary keys never cross into the sandbox. They are identifiers, they carry re-identification
+risk, and no analysis needs them — so the extract carries pseudonyms and the mapping stays behind.
+
+A manifest is at least as sensitive as the data it describes, since it links identifiers to
+membership. It lives under the same custody rules, the same access controls and the same retention
+policy as the store itself.
+
+**[open]** Manifest retention: how long after a grant ends must the mapping be kept in order to
+honour a later withdrawal, and when does keeping it become a liability rather than a safeguard?
+
 ## Sandbox
 
 - No network namespace. Not firewalled — no route.
